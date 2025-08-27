@@ -1,5 +1,5 @@
 
-import CreateLink from '@/components/Create-link'
+import CreateLink from '@/components/create-link'
 import LinkCard from '@/components/LinkCard'
 import { Button } from '@/components/ui/button'
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
