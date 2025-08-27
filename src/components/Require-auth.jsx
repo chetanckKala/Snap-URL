@@ -1,0 +1,26 @@
+
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import {UserState} from "@/context";
+import {BarLoader} from "react-spinners";
+
+function RequireAuth({children}) {
+  const navigate = useNavigate();
+
+  const {loading, isAuthenticated, fetchUser} = UserState();
+  
+  useEffect(()=>
+  {
+    fetchUser()
+  }, [])
+
+  useEffect(() => {
+    if (!isAuthenticated && !loading) navigate("/auth");
+  }, [isAuthenticated, loading]);
+
+  if (loading) return <BarLoader width={"100%"} color="#ffffff" />;
+
+  if (isAuthenticated) return children;
+}
+
+export default RequireAuth;
