@@ -51,17 +51,29 @@ const Link = () => {
     setTimeout(() => setCopied(false), 1000)
   }
 
-  const handleDownload = () =>
-  {
-      const anchor = document.createElement("a")
-      anchor.href = url?.qr
-      anchor.download = url?.title
+    const handleDownload = async () =>
+    {
+      try 
+      {
+        const response = await fetch(url?.qr, { mode: 'cors' });
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
 
-      document.body.appendChild(anchor)
-      anchor.click()
+        const anchor = document.createElement("a");
+        anchor.href = blobUrl;
+        anchor.download = url?.title || "qr-code.png";
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
 
-      document.body.removeChild(anchor)
-  }
+        window.URL.revokeObjectURL(blobUrl);
+      } 
+      catch (err) 
+      {
+        console.error("Failed to download QR code:")
+        throw new Error(err.message)
+      }
+    }
 
   // console.log(url)
 
