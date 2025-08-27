@@ -10,6 +10,7 @@ import { Check, Copy, Download, LinkIcon, Trash } from 'lucide-react'
 import React, { use, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BarLoader, MoonLoader } from 'react-spinners'
+const baseUrl = import.meta.env.VITE_BASE_URL
 
 const Link = () => {
 
@@ -45,7 +46,7 @@ const Link = () => {
 
   function handleCopy ()
   {
-    navigator.clipboard.writeText(`htttps://snap.in/${url?.custom_url ? url?.custom_url : url?.short_url}`)
+    navigator.clipboard.writeText(`${baseUrl}/${url?.custom_url ? url?.custom_url : url?.short_url}`)
     setCopied(true)
     setTimeout(() => setCopied(false), 1000)
   }
@@ -72,7 +73,7 @@ const Link = () => {
       <div className='flex flex-col gap-8 items-start h-fit  sm:w-2/5'>
 
         <span className='text-5xl font-bold'>{url?.title}</span>
-        <a href={`https://snap.in/${link}`} target='_blank' className='text-2xl font-semibold text-blue-500 hover:underline cursor-pointer border-1 bg-[#0F172B] px-3 py-1 rounded-2xl'>https://snap.in/{link}</a>
+        <a href={`${baseUrl}/${link}`} target='_blank' className='text-2xl font-semibold text-blue-500 hover:underline cursor-pointer border-1 bg-[#0F172B] px-3 py-1 rounded-2xl'>{baseUrl}/{link}</a>
         <a href={url?.original_url} target='_blank' className='flex flex-1 break-words w-full whitespace-normal items-center hover:underline gap-2 cursor-pointer'><span className='break-words w-full whitespace-normal'>{url?.original_url}</span></a>
         <span className='text-sm flex items-end font-extralight text-gray-400'>{new Date(url?.created_at).toLocaleString()}</span>
         
